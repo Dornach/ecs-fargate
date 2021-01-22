@@ -1,0 +1,28 @@
+{
+  "name": "deploy-aws-action",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "experiments": {
+    "topLevelAwait": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZieglerLabs/deploy-aws-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZieglerLabs/deploy-aws-action/issues"
+  },
+  "homepage": "https://github.com/ZieglerLabs/deploy-aws-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/exec": "^1.0.4",
+    "@actions/github": "^4.0.0"
+  }
+}

@@ -1,0 +1,18 @@
+name: 'Deploy AWS Action'
+description: 'Deploy AWS Action'
+inputs:
+  tags:
+    description: 'Tags'
+    required: true
+  service:
+    description: 'Service'
+    required: true
+  cluster:
+    description: 'Cluster'
+    required: true
+  build-command:
+    description: 'Build command'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
