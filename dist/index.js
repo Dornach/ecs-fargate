@@ -25,7 +25,8 @@ const github = __nccwpck_require__(386);
     await exec.exec('sudo chmod +x /usr/bin/update-aws-ecs-service');
 
     console.log(`Install update-aws-ecs-service`);
-    await exec.exec('aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 049470867734.dkr.ecr.eu-central-1.amazonaws.com');
+    await exec.exec('aws ecr get-login-password --region eu-central-1');
+    await exec.exec('docker login --username AWS --password-stdin 049470867734.dkr.ecr.eu-central-1.amazonaws.com');
 
     console.log(`Build the docker images with docker compose`);
     await exec.exec(buildCommand)

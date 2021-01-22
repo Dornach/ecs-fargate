@@ -3,7 +3,7 @@ const exec = require('@actions/exec');
 const github = require('@actions/github');
 
 (async () => { try {
-    const tags = JSON.parse('[{"name":"api","tag":"ziegler-cards-api"},{"name":"frontend","tag":"ziegler-cards-frontend"},{"name":"server","tag":"ziegler-cards-server"}]');
+    const tags = JSON.parse(core.getInput('tags'));
     const service = core.getInput('service');
     const cluster = core.getInput('cluster');
     const buildCommand = core.getInput('build-command');
