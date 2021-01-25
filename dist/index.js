@@ -24,7 +24,9 @@ const exec = __nccwpck_require__(159);
     await exec.exec('sudo chmod +x /usr/bin/update-aws-ecs-service');
 
     console.log(`Login to AWS ECR`);
-    await exec.exec('aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 049470867734.dkr.ecr.eu-central-1.amazonaws.com');
+    await exec.exec('docker ps');
+    await exec.exec('aws ecr get-login-password help');
+    // await exec.exec('aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 049470867734.dkr.ecr.eu-central-1.amazonaws.com');
 
     console.log(`Build the docker images with docker compose`);
     await exec.exec(buildCommand)
