@@ -2,6 +2,15 @@ const core = require('@actions/core');
 const exec = require('@actions/exec');
 
 (async () => { try {
+    let myOutput = '';
+
+    const options = {};
+    options.listeners = {
+        stdout: (data) => {
+            myOutput += data.toString();
+        }
+    };
+
     const tags = JSON.parse(core.getInput('tags'));
     const service = core.getInput('service');
     const cluster = core.getInput('cluster');
@@ -17,7 +26,8 @@ const exec = require('@actions/exec');
     await exec.exec('sudo chmod +x /usr/bin/update-aws-ecs-service');
 
     console.log(`Login to AWS ECR`);
-    await exec.exec('aws ecr get-login-password --region eu-central-1');
+    await exec.exec('aws ecr get-login-password --region eu-central-1','',options);
+    await exec.exec(`docker login --username AWS --password ${myOutput} 049470867734.dkr.ecr.eu-central-1.amazonaws.com`);
     // await exec.exec('aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 049470867734.dkr.ecr.eu-central-1.amazonaws.com');
     throw new Error('stop')
 
