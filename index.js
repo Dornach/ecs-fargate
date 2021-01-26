@@ -30,12 +30,12 @@ const exec = require('@actions/exec');
 
     let updateAWSCommand=`update-aws-ecs-service -cluster ${cluster} -service ${service} `
 
-    tags.map( async val => {
+    for(let i=0;i<tags.length;i++) {
         updateAWSCommand+=`-container-image ${val.name}=049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest `
         console.log(`Tag ${val.tag}`)
         await exec.exec(`docker tag ${val.tag}:latest 049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest`)
         await exec.exec(`docker push 049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest`)
-    })
+    }
 
     console.log(`Update an AWS ECS service with the new image`);
     await exec.exec(updateAWSCommand)
