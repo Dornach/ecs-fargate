@@ -41,7 +41,7 @@ const exec = __nccwpck_require__(159);
         const val = tags[i]
         updateAWSCommand+=`-container-image ${val.name}=049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest `
         console.log(`Tag ${val.tag}`)
-        await exec.exec(`docker tag ${val.tag}:latest 049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest`)
+        await exec.exec(`docker tag ${val.imageName}:latest 049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest`)
         await exec.exec(`docker push 049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest`)
     }
 
