@@ -25,6 +25,7 @@
     "@actions/exec": "^1.0.4",
     "@actions/github": "^4.0.0",
     "@actions/io": "^1.0.2",
+    "assert": "^2.0.0",
     "aws-sdk": "^2.831.0",
     "file-system": "^2.2.2"
   }
