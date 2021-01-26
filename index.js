@@ -37,8 +37,6 @@ const exec = require('@actions/exec');
         await exec.exec(`docker push 049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest`)
     })
 
-    console.log(`Test: `+updateAWSCommand);
-
     console.log(`Update an AWS ECS service with the new image`);
     await exec.exec(updateAWSCommand)
     console.log(`CLUSTER UPDATE FINISHED`);
