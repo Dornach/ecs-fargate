@@ -39,9 +39,9 @@ const exec = require('@actions/exec');
 
     console.log(`Test: `+updateAWSCommand);
 
-    // console.log(`Update an AWS ECS service with the new image`);
-    // await exec.exec(updateAWSCommand)
-    // console.log(`CLUSTER UPDATE FINISHED`);
+    console.log(`Update an AWS ECS service with the new image`);
+    await exec.exec(updateAWSCommand)
+    console.log(`CLUSTER UPDATE FINISHED`);
 
 } catch (error) {
     core.setFailed(error.message);
