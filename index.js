@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const exec = require('@actions/exec');
+const io = require('@actions/io');
 const fs = require('file-system');
 
 (async () => { try {
@@ -21,14 +22,14 @@ const fs = require('file-system');
     const awsRegion = core.getInput('aws-region');
 
     console.log(`Configure AWS credentials`);
-    core.exportVariable('AWS_ACCESS_KEY_ID', awsAccessKeyId);
-    core.exportVariable('AWS_SECRET_ACCESS_KEY', awsSecretAccessKey);
-    core.exportVariable('AWS_REGION', awsRegion);
-    core.exportVariable('AWS_DEFAULT_REGION', awsRegion);
+    // core.exportVariable('AWS_ACCESS_KEY_ID', awsAccessKeyId);
+    // core.exportVariable('AWS_SECRET_ACCESS_KEY', awsSecretAccessKey);
+    // core.exportVariable('AWS_REGION', awsRegion);
+    // core.exportVariable('AWS_DEFAULT_REGION', awsRegion);
 
     const credentials=`[default]\naws_access_key_id = ${awsAccessKeyId}$\naws_secret_access_key = ${awsSecretAccessKey}`
     const config=`[default]\nregion = ${awsRegion}$`
-    await fs.mkdir('/usr/local/bin/aws',(err)=>console.log(err))
+    await io.mkdirP('/usr/local/bin/aws')
     await exec.exec('ls -la /usr/local/bin')
     await fs.appendFileSync('/usr/local/bin/aws/credentials', credentials,(err)=>console.log(err));
     await exec.exec('ls -la /usr/local/bin/credentials')

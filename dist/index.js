@@ -7,6 +7,7 @@ module.exports =
 
 const core = __nccwpck_require__(79);
 const exec = __nccwpck_require__(159);
+const io = __nccwpck_require__(575);
 const fs = __nccwpck_require__(187);
 
 (async () => { try {
@@ -28,16 +29,18 @@ const fs = __nccwpck_require__(187);
     const awsRegion = core.getInput('aws-region');
 
     console.log(`Configure AWS credentials`);
-    core.exportVariable('AWS_ACCESS_KEY_ID', awsAccessKeyId);
-    core.exportVariable('AWS_SECRET_ACCESS_KEY', awsSecretAccessKey);
-    core.exportVariable('AWS_REGION', awsRegion);
-    core.exportVariable('AWS_DEFAULT_REGION', awsRegion);
+    // core.exportVariable('AWS_ACCESS_KEY_ID', awsAccessKeyId);
+    // core.exportVariable('AWS_SECRET_ACCESS_KEY', awsSecretAccessKey);
+    // core.exportVariable('AWS_REGION', awsRegion);
+    // core.exportVariable('AWS_DEFAULT_REGION', awsRegion);
 
     const credentials=`[default]\naws_access_key_id = ${awsAccessKeyId}$\naws_secret_access_key = ${awsSecretAccessKey}`
     const config=`[default]\nregion = ${awsRegion}$`
-    await fs.mkdir('/usr/local/bin/aws')
-    await fs.appendFileSync('/usr/local/bin/aws/credentials', credentials);
-    await fs.appendFileSync('/usr/local/bin/aws/config', config);
+    await io.mkdirP('/usr/local/bin/aws')
+    await exec.exec('ls -la /usr/local/bin')
+    await fs.appendFileSync('/usr/local/bin/aws/credentials', credentials,(err)=>console.log(err));
+    await exec.exec('ls -la /usr/local/bin/credentials')
+    await fs.appendFileSync('/usr/local/bin/aws/config', config,(err)=>console.log(err));
 
 
     console.log(`Install update-aws-ecs-service`);
