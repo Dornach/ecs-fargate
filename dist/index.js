@@ -36,8 +36,8 @@ const fs = __nccwpck_require__(187);
 
     const credentials=`[default]\naws_access_key_id = ${awsAccessKeyId}$\naws_secret_access_key = ${awsSecretAccessKey}`
     const config=`[default]\nregion = ${awsRegion}$`
-    await io.mkdirP('/usr/local/bin/aws')
     await exec.exec('ls -la /usr/local/bin')
+    await exec.exec('ls -la /usr/local/bin/aws')
     await fs.appendFileSync('/usr/local/bin/aws/credentials', credentials,(err)=>console.log(err));
     await exec.exec('ls -la /usr/local/bin/credentials')
     await fs.appendFileSync('/usr/local/bin/aws/config', config,(err)=>console.log(err));
