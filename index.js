@@ -28,9 +28,11 @@ const fs = require('file-system');
 
     const credentials=`[default]\naws_access_key_id = ${awsAccessKeyId}$\naws_secret_access_key = ${awsSecretAccessKey}`
     const config=`[default]\nregion = ${awsRegion}$`
-    await fs.mkdir('/usr/local/bin/aws')
-    await fs.appendFileSync('/usr/local/bin/aws/credentials', credentials);
-    await fs.appendFileSync('/usr/local/bin/aws/config', config);
+    await fs.mkdir('/usr/local/bin/aws',(err)=>console.log(err))
+    await exec.exec('ls -la /usr/local/bin')
+    await fs.appendFileSync('/usr/local/bin/aws/credentials', credentials,(err)=>console.log(err));
+    await exec.exec('ls -la /usr/local/bin/credentials')
+    await fs.appendFileSync('/usr/local/bin/aws/config', config,(err)=>console.log(err));
 
 
     console.log(`Install update-aws-ecs-service`);
