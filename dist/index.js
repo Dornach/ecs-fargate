@@ -22,10 +22,16 @@ const exec = __nccwpck_require__(159);
     const service = core.getInput('service');
     const cluster = core.getInput('cluster');
     const buildCommand = core.getInput('build-command');
+    const awsAccessKeyId = core.getInput('aws-access-key-id');
+    const awsSecretAccessKey = core.getInput('aws-secret-access-key');
+    const awsRegion = core.getInput('aws-region');
 
-    if (!tags) {
-        throw new Error('No source "tags" provided')
-    }
+    console.log(`Configure AWS credentials`);
+    core.exportVariable('AWS_ACCESS_KEY_ID', awsAccessKeyId);
+    core.exportVariable('AWS_SECRET_ACCESS_KEY', awsSecretAccessKey);
+    core.exportVariable('AWS_REGION', awsRegion);
+    core.exportVariable('AWS_DEFAULT_REGION', awsRegion);
+
 
     console.log(`Install update-aws-ecs-service`);
     await exec.exec('wget https://github.com/Autodesk/go-awsecs/releases/download/v1.3.1/update-aws-ecs-service-linux-amd64.zip');
@@ -35,8 +41,6 @@ const exec = __nccwpck_require__(159);
     console.log(`Login to AWS ECR`);
     await exec.exec('aws ecr get-login-password --region eu-central-1','',options);
     await exec.exec(`docker login --username AWS --password ${myOutput} 049470867734.dkr.ecr.eu-central-1.amazonaws.com`);
-    // await exec.exec('aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 049470867734.dkr.ecr.eu-central-1.amazonaws.com');
-    throw new Error('stop')
 
     console.log(`Build the docker images with docker compose`);
     await exec.exec(buildCommand)

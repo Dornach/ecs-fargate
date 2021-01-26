@@ -13,6 +13,15 @@ inputs:
   build-command:
     description: 'Build command'
     required: true
+  aws-access-key-id:
+    description: 'Aws access key id'
+    required: true
+  aws-secret-access-key:
+    description: 'Aws secret access key'
+    required: true
+  aws-region:
+    description: 'Aws region'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
