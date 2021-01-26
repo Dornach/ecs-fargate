@@ -59,6 +59,13 @@ const exec = __nccwpck_require__(159);
     await exec.exec(updateAWSCommand)
     console.log(`CLUSTER UPDATE FINISHED`);
 
+    console.log(`Cleanup`);
+    core.exportVariable('AWS_ACCESS_KEY_ID', '');
+    core.exportVariable('AWS_SECRET_ACCESS_KEY', '');
+    core.exportVariable('AWS_SESSION_TOKEN', '');
+    core.exportVariable('AWS_DEFAULT_REGION', '');
+    core.exportVariable('AWS_REGION', '');
+
 } catch (error) {
     core.setFailed(error.message);
 }
