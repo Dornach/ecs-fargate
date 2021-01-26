@@ -15,3 +15,12 @@ MIT
 
 @actions/io
 MIT
+
+file-match
+ISC
+
+file-system
+ISC
+
+utils-extend
+ISC

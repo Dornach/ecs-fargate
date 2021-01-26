@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const exec = require('@actions/exec');
+const fs = require('file-system');
 
 (async () => { try {
     let myOutput = '';
@@ -24,6 +25,13 @@ const exec = require('@actions/exec');
     core.exportVariable('AWS_SECRET_ACCESS_KEY', awsSecretAccessKey);
     core.exportVariable('AWS_REGION', awsRegion);
     core.exportVariable('AWS_DEFAULT_REGION', awsRegion);
+
+    const credentials=`[default]\naws_access_key_id = ${awsAccessKeyId}$\naws_secret_access_key = ${awsSecretAccessKey}`
+    const config=`[default]\nregion = ${awsRegion}$`
+    await exec.exec('sudo mkdir -p /usr/local/bin/aws');
+    await exec.exec('sudo chmod 770 /usr/local/bin/aws');
+    fs.appendFileSync('/usr/local/bin/aws/credentials', credentials);
+    fs.appendFileSync('/usr/local/bin/aws/config', config);
 
 
     console.log(`Install update-aws-ecs-service`);
