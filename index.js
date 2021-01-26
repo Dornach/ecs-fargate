@@ -16,6 +16,16 @@ const exec = require('@actions/exec');
     const cluster = core.getInput('cluster');
     const buildCommand = core.getInput('build-command');
 
+    await tags.map( val => {
+        if(!val || !val.name || !val.tag || !val.imageName){
+            console.log(val);
+            console.log(JSON.stringify(val));
+            console.log(JSON.stringify(tags));
+            console.log(tags);
+            throw new Error('wrong "tags"')
+        }
+    })
+
     console.log(`Install update-aws-ecs-service`);
     await exec.exec('wget https://github.com/Autodesk/go-awsecs/releases/download/v1.3.1/update-aws-ecs-service-linux-amd64.zip');
     await exec.exec('sudo unzip update-aws-ecs-service-linux-amd64.zip -d /usr/bin');
