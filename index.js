@@ -29,7 +29,6 @@ const fs = require('file-system');
 
     const credentials=`[default]\naws_access_key_id = ${awsAccessKeyId}$\naws_secret_access_key = ${awsSecretAccessKey}`
     const config=`[default]\nregion = ${awsRegion}$`
-    await io.mkdirP('/usr/local/bin/aws')
     await exec.exec('ls -la /usr/local/bin')
     await fs.appendFileSync('/usr/local/bin/aws/credentials', credentials,(err)=>console.log(err));
     await exec.exec('ls -la /usr/local/bin/credentials')
