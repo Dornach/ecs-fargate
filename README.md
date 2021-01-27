@@ -6,8 +6,8 @@ https://github.com/aws-actions/configure-aws-credentials
 
 ## Sample use
 ```yaml
-      - name: Update an AWS ECS service with the new image
-        uses: ./ZieglerLabs/amazon-ECS-deploy@v1.1
+      - name: ecs-fargate
+        uses: ZieglerLabs/ecs-fargate@v0.1
         with:
           tags: '[{"containerImage":"api","tag":"ziegler-cards-api","imageName":"card-creator-api-prod"},{"containerImage":"frontend","tag":"ziegler-cards-frontend","imageName":"card-creator-frontend-prod"},{"containerImage":"server","tag":"ziegler-cards-server","imageName":"card-creator-server-prod"}]'
           service: ziegler-cards-creator
