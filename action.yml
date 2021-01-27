@@ -1,5 +1,5 @@
-name: 'Deploy AWS Action'
-description: 'Deploy AWS Action'
+name: 'amazon-ECS-deploy'
+description: 'Amazon ECS deploy'
 inputs:
   tags:
     description: 'Tags'
@@ -12,6 +12,9 @@ inputs:
     required: true
   build-command:
     description: 'Build command'
+    required: true
+  ecr:
+    description: 'ecr'
     required: true
   aws-access-key-id:
     description: >-

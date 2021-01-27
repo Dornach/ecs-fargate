@@ -22,13 +22,12 @@ const exec = __nccwpck_require__(159);
     const service = core.getInput('service');
     const cluster = core.getInput('cluster');
     const buildCommand = core.getInput('build-command');
+    const ecr = core.getInput('ecr');
 
     await tags.map( val => {
-        if(!val || !val.name || !val.tag || !val.imageName){
-            console.log(val);
+        if(!val || !val.containerImage || !val.tag){
             console.log(JSON.stringify(val));
             console.log(JSON.stringify(tags));
-            console.log(tags);
             throw new Error('wrong "tags"')
         }
     })
@@ -40,19 +39,19 @@ const exec = __nccwpck_require__(159);
 
     console.log(`Login to AWS ECR`);
     await exec.exec('aws ecr get-login-password --region eu-central-1','',options);
-    await exec.exec(`docker login --username AWS --password ${myOutput} 049470867734.dkr.ecr.eu-central-1.amazonaws.com`);
+    await exec.exec(`docker login --username AWS --password ${myOutput} ${ecr}`);
 
     console.log(`Build the docker images with docker compose`);
-    await exec.exec(buildCommand)
+    await exec.exec(`docker-compose -f ${buildCommand} build`)
 
     let updateAWSCommand=`update-aws-ecs-service -cluster ${cluster} -service ${service} `
 
     for(let i=0;i<tags.length;i++) {
         const val = tags[i]
-        updateAWSCommand+=`-container-image ${val.name}=049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest `
+        updateAWSCommand+=`-container-image ${val.containerImage}=${ecr}/${val.tag}:latest `
         console.log(`Tag ${val.tag}`)
-        await exec.exec(`docker tag ${val.imageName}:latest 049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest`)
-        await exec.exec(`docker push 049470867734.dkr.ecr.eu-central-1.amazonaws.com/${val.tag}:latest`)
+        await exec.exec(`docker tag ${val.imageName ? val.imageName : val.tag}:latest ${ecr}/${val.tag}:latest`)
+        await exec.exec(`docker push ${ecr}/${val.tag}:latest`)
     }
 
     console.log(`Update an AWS ECS service with the new image`);
