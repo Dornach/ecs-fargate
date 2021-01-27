@@ -1,5 +1,5 @@
-name: 'amazon-ECS-deploy'
-description: 'Amazon ECS deploy'
+name: 'ecs-fargate'
+description: 'ecs-fargate'
 inputs:
   tags:
     description: 'Tags'
