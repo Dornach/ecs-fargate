@@ -1,4 +1,4 @@
-# amazon-ECS-deploy
+# ecs-fargate
 
 The script uses files: configure-aws-credentials@v1
 
