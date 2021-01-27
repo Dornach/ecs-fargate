@@ -16,5 +16,5 @@ https://github.com/aws-actions/configure-aws-credentials
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY }}
           aws-region: eu-central-1
-          ecr: 049470867734.dkr.ecr.eu-central-1.amazonaws.com
+          ecr: ************.dkr.ecr.eu-central-1.amazonaws.com
 ```
