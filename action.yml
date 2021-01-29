@@ -12,7 +12,7 @@ inputs:
     required: true
   build-command:
     description: 'Build command'
-    required: true
+    required: false
   ecr:
     description: 'ecr'
     required: true
@@ -32,7 +32,7 @@ inputs:
     description: 'AWS Session Token'
     required: false
   aws-region:
-    description: 'AWS Region, e.g. us-east-2'
+    description: 'AWS Region'
     required: true
   mask-aws-account-id:
     description: >-
