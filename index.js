@@ -46,7 +46,7 @@ const exec = require('@actions/exec');
         const val = tags[i]
         updateAWSCommand+=`-container-image ${val.containerImage}=${ecr}/${val.tag}:${val.env ? val.env : 'latest'} `
         console.log(`Tag ${val.tag}`)
-        await exec.exec(`docker tag ${val.imageName ? val.imageName : val.tag}:${val.env ? val.env : 'latest'} ${ecr}/${val.tag}:${val.env ? val.env : 'latest'}}`)
+        await exec.exec(`docker tag ${val.imageName ? val.imageName : val.tag}:${val.env ? val.env : 'latest'} ${ecr}/${val.tag}:${val.env ? val.env : 'latest'}`)
         await exec.exec(`docker push ${ecr}/${val.tag}:${val.env ? val.env : 'latest'}`)
     }
 
