@@ -19,7 +19,7 @@ const exec = require('@actions/exec');
     const ecr = core.getInput('ecr');
 
     await tags.map( val => {
-        if(!val || !val.containerImage || !val.tag){
+        if(!val || !val.containerImage || !val.repository){
             console.log(JSON.stringify(val));
             console.log(JSON.stringify(tags));
             throw new Error('wrong "tags"')
@@ -44,10 +44,10 @@ const exec = require('@actions/exec');
 
     for(let i=0;i<tags.length;i++) {
         const val = tags[i]
-        updateAWSCommand+=`-container-image ${val.containerImage}=${ecr}/${val.tag}:${val.env ? val.env : 'latest'} `
-        console.log(`Tag ${val.tag}`)
-        await exec.exec(`docker tag ${val.imageName ? val.imageName : val.tag}:${val.env ? val.env : 'latest'} ${ecr}/${val.tag}:${val.env ? val.env : 'latest'}`)
-        await exec.exec(`docker push ${ecr}/${val.tag}:${val.env ? val.env : 'latest'}`)
+        updateAWSCommand+=`-container-image ${val.containerImage}=${ecr}/${val.repository}:${val.tag ? val.tag : 'latest'} `
+        console.log(`Tag ${val.repository}`)
+        await exec.exec(`docker tag ${val.imageName ? val.imageName : val.repository}:${val.tag ? val.tag : 'latest'} ${ecr}/${val.repository}:${val.tag ? val.tag : 'latest'}`)
+        await exec.exec(`docker push ${ecr}/${val.repository}:${val.tag ? val.tag : 'latest'}`)
     }
 
     console.log(`Update an AWS ECS service with the new image`);
