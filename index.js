@@ -17,6 +17,7 @@ const exec = require('@actions/exec');
     const buildCommand = core.getInput('build-command');
     const awsRegion = core.getInput('aws-region');
     const ecr = core.getInput('ecr');
+    const deletePreviousVersion = core.getInput('delete-previous-version');
 
     await tags.map( val => {
         if(!val || !val.containerImage || !val.repository){
@@ -46,6 +47,9 @@ const exec = require('@actions/exec');
         const val = tags[i]
         updateAWSCommand+=`-container-image ${val.containerImage}=${ecr}/${val.repository}:${val.tag ? val.tag : 'latest'} `
         console.log(`Tag ${val.repository}`)
+        if(deletePreviousVersion){
+            await exec.exec(`aws ecr batch-delete-image --repository-name ${val.repository} --image-ids imageTag=${val.tag ? val.tag : 'latest'}`)
+        }
         await exec.exec(`docker tag ${val.imageName ? val.imageName : val.repository}:${val.tag ? val.tag : 'latest'} ${ecr}/${val.repository}:${val.tag ? val.tag : 'latest'}`)
         await exec.exec(`docker push ${ecr}/${val.repository}:${val.tag ? val.tag : 'latest'}`)
     }

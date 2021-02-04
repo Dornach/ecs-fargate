@@ -13,6 +13,9 @@ inputs:
   build-command:
     description: 'Build command'
     required: false
+  delete-previous-version:
+    description: 'Delete previous version'
+    required: false
   ecr:
     description: 'ecr'
     required: true
